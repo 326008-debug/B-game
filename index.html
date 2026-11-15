@@ -276,8 +276,8 @@
             if (collide(board, player)) {
                 player.pos.y--;
                 merge(board, player);
-                playerReset();
                 arenaSweep();
+                playerReset();
             }
             dropCounter = 0;
         }
@@ -288,8 +288,8 @@
             }
             player.pos.y--;
             merge(board, player);
-            playerReset();
             arenaSweep();
+            playerReset();
             dropCounter = 0;
         }
 
@@ -336,7 +336,7 @@
             const pieces = 'IJLOSTZ';
             const type = pieces[Math.floor(Math.random() * pieces.length)];
             const index = pieces.indexOf(type) + 1;
-            return SHAPES[index];
+            return SHAPES[index].map(row => row.slice());
         }
 
         function playerReset() {
@@ -511,6 +511,9 @@
 
         // 入力処理（キーボード）
         document.addEventListener('keydown', event => {
+            if ([37, 38, 39, 40, 32].includes(event.keyCode)) {
+                event.preventDefault();
+            }
             if (!isPlaying) {
                 if (event.code === 'Space') startGame();
                 return;
